@@ -6,6 +6,18 @@ import LeadForm from "@/components/ui/LeadForm";
 export default function Footer() {
   return (
     <footer id="contact" className="relative bg-canvas text-muted overflow-hidden border-t border-divider">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/back.png"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-canvas/90" />
+      </div>
+
       <CosmosMapBackground />
 
       <div className="relative container-px max-w-content mx-auto pt-20 pb-10">
