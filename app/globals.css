@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #B8EB86;
+  border-radius: 999px;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* 12px uppercase / 600 / 0.08em -- used for eyebrows, tags, meta labels */
+  .label-text {
+    @apply text-label uppercase font-sans text-ink;
+  }
+
+  .eyebrow {
+    @apply label-text text-muted;
+  }
+
+  /* Body copy default: 16px / 400 / 1.65 line-height, in muted grey */
+  .body-text {
+    @apply text-base font-normal leading-[1.65] text-muted;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-ink text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-accent-hover;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-ink text-ink text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-ink hover:text-surface;
+  }
+
+  .card {
+    @apply bg-surface border border-divider transition-colors duration-300 hover:border-accent;
+  }
+
+  .badge {
+    @apply inline-flex items-center label-text text-ink bg-accent-soft px-3 py-1.5;
+  }
+
+  .container-px {
+    @apply px-6 md:px-12 lg:px-20;
+  }
+}
