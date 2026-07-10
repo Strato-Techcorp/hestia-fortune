@@ -59,11 +59,11 @@ export default function Footer() {
 
           {/* Right: schedule a site visit */}
           <div className="flex items-start lg:justify-end">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-md rounded-2xl border border-accent-hover/30 hover:border-accent-hover/50 shadow-[0_0_0_1px_rgba(123,174,74,0.06),0_20px_60px_-20px_rgba(123,174,74,0.25)] transition-colors duration-500 p-1">
               <LeadForm
                 title="Schedule a Site Visit"
                 subtitle="Leave your details and our team will arrange a guided walk-through."
-                submitLabel="Book a Visit"
+                submitLabel="Book a Private Tour"
               />
             </div>
           </div>

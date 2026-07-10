@@ -68,7 +68,7 @@ export default function Blogs() {
 
       <Modal open={open !== null} onClose={() => setOpen(null)} maxWidth="max-w-2xl">
         {open !== null && (
-          <div>
+          <div className="max-h-[85vh] overflow-y-auto overscroll-contain">
             <div className="relative aspect-[16/9]">
               <Image src={BLOG_POSTS[open].image} alt={BLOG_POSTS[open].title} fill className="object-cover" sizes="90vw" />
             </div>

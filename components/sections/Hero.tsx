@@ -97,7 +97,7 @@ export default function Hero() {
                 dark
                 title="Enquire Now"
                 subtitle="Share your details and our team will call you back."
-                submitLabel="Request a Callback"
+                submitLabel="Schedule a Site Visit"
               />
             </motion.div>
           </div>
