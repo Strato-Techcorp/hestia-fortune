@@ -223,7 +223,7 @@ export const LIFESTYLE_PILLARS = [
   {
     title: "Natural Light",
     desc: "Thoughtfully designed spaces that welcome daylight, bringing warmth, comfort and openness into every home.",
-    image: "/images/villa-detail-3.jpg",
+    image: "/images/image (5).jpg",
   },
   {
     title: "Modern Living",
@@ -233,12 +233,12 @@ export const LIFESTYLE_PILLARS = [
   {
     title: "Gracefully Inspired",
     desc: "Timeless Greek-inspired facades crafted with elegant proportions and refined architectural detailing.",
-    image: "/images/villa-detail-5.jpg",
+    image: "/images/image (7).jpg",
   },
   {
     title: "Open Spaces",
     desc: "Thoughtfully planned spaces that embrace natural light, openness and harmonious everyday living.",
-    image: "/images/villa-detail-2.jpg",
+    image: "/images/image (4).jpg",
   },
   // {
   //   title: "Crafted Elegance",
@@ -313,7 +313,7 @@ export const BLOG_POSTS = [
     card: "Where laughter fills every corner and every home is crafted for lasting memories.",
     title: "The Art of Fine Living: Welcome to the Limited-Edition Villas of Fortune Hestia",
     readTime: "1.5 mins",
-    image: "/images/villa-detail-3.jpg",
+    image: "/images/4.png",
     body: [
       "Some homes are thoughtfully crafted to become the backdrop for life's most meaningful moments. Nestled within the 50-acre Greek-inspired Fortune Cosmos township, Fortune Hestia presents a limited edition collection of 4 BHK luxury villas off Sarjapur Road, where timeless Greek-inspired architecture, open spaces and contemporary living come together in perfect harmony.",
       "Wake up to sunlit interiors, gather with loved ones on spacious private terraces, and experience the warmth of a home designed for modern family living. Surrounded by landscaped green spaces and seamlessly connected to Bengaluru's thriving IT corridor, Fortune Hestia offers a lifestyle where every day feels beautifully lived.",
@@ -324,7 +324,7 @@ export const BLOG_POSTS = [
     card: "Built for Every Season, Crafted for Life",
     title: "Built for Every Season",
     readTime: "1.5 mins",
-    image: "/images/villa-detail-2.jpg",
+    image: "/images/5.png",
     body: [
       "A thoughtfully planned township begins with a strong foundation. At Fortune Cosmos, advanced drainage systems, engineered retaining walls and carefully designed infrastructure work together to ensure comfort, safety and peace of mind through every season.",
       "Every element has been planned with lasting quality in mind, creating a community that remains resilient while preserving its beauty and functionality. Because exceptional living is built on thoughtful planning, timeless craftsmanship and a commitment to creating homes that stand strong for generations.",
@@ -335,7 +335,7 @@ export const BLOG_POSTS = [
     card: "Connected to Everything That Matters",
     title: "Connected to Everything That Truly Matters",
     readTime: "1.5 mins",
-    image: "/images/villa-detail-5.jpg",
+    image: "/images/6.png",
     body: [
       "The right address shapes the way you live. Thoughtfully located off Sarjapur Road, Fortune Cosmos offers seamless connectivity to Bengaluru's leading IT hubs, renowned schools, healthcare centres and everyday conveniences, while preserving the calm of a thoughtfully planned community.",
       "Whether it's a short drive to Electronic City, Whitefield, Outer Ring Road or the city's thriving business districts, every destination is within easy reach. Here, effortless connectivity meets thoughtfully crafted living, creating a place where work, family and leisure exist in perfect harmony.",
@@ -373,17 +373,17 @@ const FACING_IMAGES: Record<FacingKey, string[]> = {
 };
 
 const SHOWCASE_40x60: Record<FacingKey, string[]> = {
-  north: ["/images/401.jpg"],
-  south: ["/images/south401.jpg", "/images/south402.jpg", "/images/south403.jpg", "/images/south404.jpg"],
-  east: ["/images/east401.jpg", "/images/east402.jpg", "/images/east403.jpg", "/images/east404.jpg"],
-  west: ["/images/west401.jpg", "/images/west402.jpg", "/images/west403.jpg", "/images/west404.jpg"],
+  north: ["/images/1.jpeg"],
+  south: ["/images/4.png"],
+  east: ["/images/5.png"],
+  west: ["/images/6.png"],
 };
 
 const SHOWCASE_50x80: Record<FacingKey, string[]> = {
   north: ["/images/501.png"],
-  south: ["/images/south501.jpg", "/images/south502.jpg", "/images/south503.jpg", "/images/south504.jpg"],
-  east: ["/images/east501.jpg", "/images/east502.jpg", "/images/east503.jpg", "/images/east504.jpg"],
-  west: ["/images/west501.jpg", "/images/west502.jpg", "/images/west503.jpg", "/images/west504.jpg"],
+  south: ["/images/7.png"],
+  east: ["/images/8.png"],
+  west: ["/images/9.png"],
 };
 
 export const VILLA_DESIGN_DATA: VillaPlotData[] = [

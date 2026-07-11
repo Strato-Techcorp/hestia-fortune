@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Full-bleed background image -- this stays edge-to-edge, correctly */}
       <div className="absolute inset-0">
         <Image
-          src="/images/villa-detail-2.jpg"
+          src="/images/2.png"
           alt="Fortune Hestia villa elevation, Sarjapur Road, Bangalore"
           fill
           priority

@@ -72,7 +72,7 @@ export default function BrochureCTA() {
             <div className="relative">
               <div className="bg-surface border border-divider p-3 md:p-4">
                 <ParallaxImage
-                  src="/images/villa-detail-1.jpg"
+                  src="/images/3.jpeg"
                   alt="Fortune Hestia villa architecture"
                   className="aspect-[16/10] w-full"
                   sizes="(max-width: 1024px) 100vw, 55vw"
