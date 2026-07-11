@@ -304,6 +304,7 @@ export const LIFE_BEYOND_HOME = [
   { name: "The Pools", desc: "A swimming pool with a separate toddler's pool.", image: "/images/pool.jpeg" },
   { name: "Kids & Grandparents", desc: "A Kids Play Area and a Toddler's Park linked to a dedicated Grandparents Zone.", image: "/images/lifestyle-cooking.jpg" },
   { name: "Landscaped Gardens", desc: "Designer parks and tree-lined avenues surrounding every villa cluster.", image: "/images/lifestyle-hammock.jpg" },
+  { name: "Barbeque Area", desc: "A dedicated space for outdoor cooking and entertaining.", image: "/images/barb.png" },
   
 ];
 

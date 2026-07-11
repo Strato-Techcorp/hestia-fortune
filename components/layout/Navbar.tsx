@@ -23,10 +23,21 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-ink/40 backdrop-blur-md border-b border-white/10 ${
-          scrolled ? "py-4" : "py-7"
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b ${
+          scrolled
+            ? "bg-surface/95 backdrop-blur-md py-4 border-divider shadow-sm"
+            : "bg-transparent py-7 border-transparent"
         }`}
       >
+        {/* Scrim: guarantees legibility over the hero photo regardless of what's
+            underneath it (sky, timber, glass...). Fades out once scrolled. */}
+        <div
+          aria-hidden
+          className={`absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/20 to-transparent transition-opacity duration-500 ${
+            scrolled ? "opacity-0" : "opacity-100"
+          }`}
+        />
+
         <div className="container-px max-w-content mx-auto flex items-center justify-between">
           <Link href="/" className="relative flex items-center h-16 w-52 shrink-0">
             <Image
@@ -42,7 +53,11 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="label-text text-white/90 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] transition-colors duration-300"
+                className={`label-text transition-colors duration-300 ${
+                  scrolled
+                    ? "text-muted hover:text-accent-hover"
+                    : "text-white/90 hover:text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]"
+                }`}
               >
                 {l.label}
               </Link>
@@ -51,14 +66,16 @@ export default function Navbar() {
 
           <Link
             href="/#enquiry"
-            className="hidden lg:inline-flex btn-secondary !border-white !text-white hover:!bg-white hover:!text-ink transition-colors duration-500"
+            className={`hidden lg:inline-flex transition-colors duration-500 ${
+              scrolled ? "btn-secondary" : "btn-secondary !border-white !text-white hover:!bg-white hover:!text-ink"
+            }`}
           >
             Book a Visit
           </Link>
 
           <button
             aria-label="Toggle menu"
-            className="lg:hidden text-white transition-colors duration-300"
+            className={`lg:hidden transition-colors duration-300 ${scrolled ? "text-ink" : "text-white"}`}
             onClick={() => setOpen((o) => !o)}
           >
             {open ? <X size={26} /> : <Menu size={26} />}
