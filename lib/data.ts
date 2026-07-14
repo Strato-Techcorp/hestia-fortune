@@ -314,7 +314,7 @@ export const BLOG_POSTS = [
     card: "Where laughter fills every corner and every home is crafted for lasting memories.",
     title: "The Art of Fine Living: Welcome to the Limited-Edition Villas of Fortune Hestia",
     readTime: "1.5 mins",
-    image: "/images/familybl.jpg",
+    image: "/images/familybl.jpeg",
     body: [
       "Some homes are thoughtfully crafted to become the backdrop for life's most meaningful moments. Nestled within the 50-acre Greek-inspired Fortune Cosmos township, Fortune Hestia presents a limited edition collection of 4 BHK luxury villas off Sarjapur Road, where timeless Greek-inspired architecture, open spaces and contemporary living come together in perfect harmony.",
       "Wake up to sunlit interiors, gather with loved ones on spacious private terraces, and experience the warmth of a home designed for modern family living. Surrounded by landscaped green spaces and seamlessly connected to Bengaluru's thriving IT corridor, Fortune Hestia offers a lifestyle where every day feels beautifully lived.",
