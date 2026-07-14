@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section id="top" className="relative w-full min-h-[100svh] flex items-end overflow-hidden">
       {/* Full-bleed background image -- this stays edge-to-edge, correctly */}
-      <div className="absolute inset-0">
+      <div className="absolute w-full h-screen">
         <Image
           src="/images/herooo.jpeg"
           alt="Fortune Hestia villa elevation, Sarjapur Road, Bangalore"

@@ -52,8 +52,8 @@ export default function Blogs() {
                     alt={post.title}
                     className="aspect-[4/3]"
                     imageClassName="object-[50%_30%] transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    intensity={50}
+                    sizes="(max-width: 768px) 100vw, 90vw"
+                    intensity={90}
                   />
                   <p className="mt-5 label-text text-accent-hover">{post.readTime} read</p>
                   <h3 className="mt-2 font-display font-semibold text-xl text-ink leading-snug group-hover:text-accent-hover transition-colors">
@@ -69,14 +69,14 @@ export default function Blogs() {
       <Modal open={open !== null} onClose={() => setOpen(null)} maxWidth="max-w-2xl">
         {open !== null && (
           <div className="max-h-[85vh] overflow-y-auto overscroll-contain">
-            <div className="relative aspect-[16/9]">
+            <div className="relative aspect-[16.9/8.8]">
               <Image
-                src={BLOG_POSTS[open].image}
-                alt={BLOG_POSTS[open].title}
-                fill
-                className="object-cover object-[50%_30%]"
-                sizes="90vw"
-              />
+  src={BLOG_POSTS[open].image}
+  alt={BLOG_POSTS[open].title}
+  fill
+  className="object-cover object-center"
+  sizes="100vw"
+/>
             </div>
             <div className="p-6 md:p-10">
               <p className="label-text text-accent-hover">{BLOG_POSTS[open].readTime} read</p>
