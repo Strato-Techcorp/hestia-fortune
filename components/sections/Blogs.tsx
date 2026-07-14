@@ -51,7 +51,7 @@ export default function Blogs() {
                     src={post.image}
                     alt={post.title}
                     className="aspect-[4/3]"
-                    imageClassName="transition-transform duration-700 group-hover:scale-110"
+                    imageClassName="object-[50%_30%] transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 33vw"
                     intensity={50}
                   />
@@ -70,7 +70,13 @@ export default function Blogs() {
         {open !== null && (
           <div className="max-h-[85vh] overflow-y-auto overscroll-contain">
             <div className="relative aspect-[16/9]">
-              <Image src={BLOG_POSTS[open].image} alt={BLOG_POSTS[open].title} fill className="object-cover" sizes="90vw" />
+              <Image
+                src={BLOG_POSTS[open].image}
+                alt={BLOG_POSTS[open].title}
+                fill
+                className="object-cover object-[50%_30%]"
+                sizes="90vw"
+              />
             </div>
             <div className="p-6 md:p-10">
               <p className="label-text text-accent-hover">{BLOG_POSTS[open].readTime} read</p>

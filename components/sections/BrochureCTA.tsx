@@ -1,13 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, PanInfo } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 import Modal from "@/components/ui/Modal";
 import LeadForm from "@/components/ui/LeadForm";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 
+const SLIDES = [
+  {
+    src: "/images/3.jpeg",
+    alt: "Fortune Hestia villa architecture",
+    caption: "Villa Elevation",
+  },
+  {
+    src: "/images/livingspaces (1).jpg",
+    alt: "Fortune Hestia villa interiors",
+    caption: "Living Spaces",
+  },
+  {
+    src: "/images/livingspaces (2).jpg",
+    alt: "Fortune Hestia villa landscaping",
+    caption: "Garden & Courtyard",
+  },
+];
+
+const SWIPE_THRESHOLD = 60;
+const AUTOPLAY_INTERVAL = 2000;
+const RESUME_DELAY = 500;
+
 export default function BrochureCTA() {
   const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const indexRef = useRef(index);
+  indexRef.current = index;
+  const resumeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHovering = useRef(false);
 
   const handleSuccess = () => {
     const link = document.createElement("a");
@@ -16,6 +46,63 @@ export default function BrochureCTA() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const goTo = (nextIndex: number) => {
+    if (nextIndex === indexRef.current) return;
+    setDirection(nextIndex > indexRef.current ? 1 : -1);
+    setIndex((nextIndex + SLIDES.length) % SLIDES.length);
+  };
+
+  // Autoplay: advances every AUTOPLAY_INTERVAL ms, pauses on hover/drag/manual nav
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      goTo(indexRef.current + 1);
+    }, AUTOPLAY_INTERVAL);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+    };
+  }, []);
+
+  const pauseTemporarily = () => {
+    if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+    setIsPaused(true);
+    resumeTimeout.current = setTimeout(() => {
+      if (!isHovering.current) setIsPaused(false);
+    }, RESUME_DELAY);
+  };
+
+  const handleManualNav = (nextIndex: number) => {
+    goTo(nextIndex);
+    pauseTemporarily();
+  };
+
+  const handleMouseEnter = () => {
+    isHovering.current = true;
+    if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    isHovering.current = false;
+    pauseTemporarily();
+  };
+
+  const handleDragEnd = (
+    _e: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (info.offset.x < -SWIPE_THRESHOLD) {
+      goTo(indexRef.current + 1);
+    } else if (info.offset.x > SWIPE_THRESHOLD) {
+      goTo(indexRef.current - 1);
+    }
+    pauseTemporarily();
   };
 
   return (
@@ -66,24 +153,83 @@ export default function BrochureCTA() {
           </Reveal>
         </div>
 
-        {/* Framed image, mat-board style */}
+        {/* Framed image slider, mat-board style */}
         <div className="lg:col-span-7 lg:col-start-6 order-1 lg:order-2">
           <Reveal delay={0.15}>
             <div className="relative">
-              <div className="bg-surface border border-divider p-3 md:p-4">
-                <ParallaxImage
-                  src="/images/3.jpeg"
-                  alt="Fortune Hestia villa architecture"
-                  className="aspect-[16/10] w-full"
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  intensity={70}
-                />
+              <div
+                className="relative bg-surface border border-divider p-3 md:p-4"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                    <motion.div
+                      key={index}
+                      custom={direction}
+                      className="absolute inset-0 cursor-grab active:cursor-grabbing"
+                      initial={{ x: direction >= 0 ? "100%" : "-100%", opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: direction >= 0 ? "-100%" : "100%", opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.15}
+                      onDragEnd={handleDragEnd}
+                    >
+                      <ParallaxImage
+                        src={SLIDES[index].src}
+                        alt={SLIDES[index].alt}
+                        className="h-full w-full"
+                        sizes="(max-width: 1024px) 100vw, 55vw"
+                        intensity={70}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Prev / Next arrows */}
+                <button
+                  type="button"
+                  aria-label="Previous photo"
+                  onClick={() => handleManualNav(index - 1)}
+                  className="absolute left-6 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center border border-divider bg-canvas/80 text-ink backdrop-blur-sm transition hover:bg-canvas"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next photo"
+                  onClick={() => handleManualNav(index + 1)}
+                  className="absolute right-6 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center border border-divider bg-canvas/80 text-ink backdrop-blur-sm transition hover:bg-canvas"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+
+                {/* Dot indicators */}
+                <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                  {SLIDES.map((slide, i) => (
+                    <button
+                      key={slide.src}
+                      type="button"
+                      aria-label={`Go to photo ${i + 1}`}
+                      onClick={() => handleManualNav(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/30"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Caption row, beneath the frame like a gallery placard */}
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-[11px] uppercase tracking-[0.14em] text-ink/50">
-                  Villa Elevation
+                  {SLIDES[index].caption}
                 </span>
                 <span className="text-[11px] uppercase tracking-[0.14em] text-ink/50">
                   Fortune Hestia

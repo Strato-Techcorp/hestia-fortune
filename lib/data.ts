@@ -216,28 +216,28 @@ export const LOCATION_HIGHLIGHTS = [
 
 export const LIFESTYLE_PILLARS = [
   {
-    title: "Contemporary Living",
-    desc: "Experience peaceful surroundings thoughtfully designed for modern family living.",
+    title: "Made for the Moments That Matter Most.",
+    desc: "Experience a lifestyle where nature, comfort, and family come together in perfect harmony.",
     image: "/images/lifestyle-tug-of-war.jpg",
   },
   {
-    title: "Natural Light",
-    desc: "Thoughtfully designed spaces that welcome daylight, bringing warmth, comfort and openness into every home.",
+    title: " Life Flourishes in the Open.",
+    desc: "Surrounded by lush green spaces, walking trails, and thoughtfully designed landscapes that inspire healthier, happier living.",
     image: "/images/image (5).jpg",
   },
   {
-    title: "Modern Living",
-    desc: "Thoughtfully designed spaces where families come together, surrounded by comfort, greenery and everyday moments.",
+    title: "Where Every Day Feels Effortless.",
+    desc: "Thoughtfully crafted for comfort, nature, and everyday moments that make life meaningful.",
     image: "/images/lifestyle-family-grass.jpg",
   },
   {
-    title: "Gracefully Inspired",
-    desc: "Timeless Greek-inspired facades crafted with elegant proportions and refined architectural detailing.",
+    title: "Where Every Generation Belongs.",
+    desc: "Thoughtfully designed spaces that bring families together through nature, connection, and meaningful everyday moments.",
     image: "/images/image (7).jpg",
   },
   {
-    title: "Open Spaces",
-    desc: "Thoughtfully planned spaces that embrace natural light, openness and harmonious everyday living.",
+    title: "Breathe in the Luxury of Space.",
+    desc: "Expansive living designed around comfort, openness, and a lifestyle close to nature.",
     image: "/images/image (4).jpg",
   },
   // {
@@ -314,7 +314,7 @@ export const BLOG_POSTS = [
     card: "Where laughter fills every corner and every home is crafted for lasting memories.",
     title: "The Art of Fine Living: Welcome to the Limited-Edition Villas of Fortune Hestia",
     readTime: "1.5 mins",
-    image: "/images/4.png",
+    image: "/images/familybl.jpg",
     body: [
       "Some homes are thoughtfully crafted to become the backdrop for life's most meaningful moments. Nestled within the 50-acre Greek-inspired Fortune Cosmos township, Fortune Hestia presents a limited edition collection of 4 BHK luxury villas off Sarjapur Road, where timeless Greek-inspired architecture, open spaces and contemporary living come together in perfect harmony.",
       "Wake up to sunlit interiors, gather with loved ones on spacious private terraces, and experience the warmth of a home designed for modern family living. Surrounded by landscaped green spaces and seamlessly connected to Bengaluru's thriving IT corridor, Fortune Hestia offers a lifestyle where every day feels beautifully lived.",
@@ -336,7 +336,7 @@ export const BLOG_POSTS = [
     card: "Connected to Everything That Matters",
     title: "Connected to Everything That Truly Matters",
     readTime: "1.5 mins",
-    image: "/images/6.png",
+    image: "/images/conn.png",
     body: [
       "The right address shapes the way you live. Thoughtfully located off Sarjapur Road, Fortune Cosmos offers seamless connectivity to Bengaluru's leading IT hubs, renowned schools, healthcare centres and everyday conveniences, while preserving the calm of a thoughtfully planned community.",
       "Whether it's a short drive to Electronic City, Whitefield, Outer Ring Road or the city's thriving business districts, every destination is within easy reach. Here, effortless connectivity meets thoughtfully crafted living, creating a place where work, family and leisure exist in perfect harmony.",
