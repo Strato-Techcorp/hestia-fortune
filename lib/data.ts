@@ -314,7 +314,7 @@ export const BLOG_POSTS = [
     card: "Where laughter fills every corner and every home is crafted for lasting memories.",
     title: "The Art of Fine Living: Welcome to the Limited-Edition Villas of Fortune Hestia",
     readTime: "1 mins",
-    image: "/images/familybl.jpeg",
+    image: "/images/new8.png",
     body: [
       "Some homes are thoughtfully crafted to become the backdrop for life's most meaningful moments. Nestled within the 50-acre Greek-inspired Fortune Cosmos township, Fortune Hestia presents a limited edition collection of 4 BHK luxury villas off Sarjapur Road, where timeless Greek-inspired architecture, open spaces and contemporary living come together in perfect harmony.",
       "Wake up to sunlit interiors, gather with loved ones on spacious private terraces, and experience the warmth of a home designed for modern family living. Surrounded by landscaped green spaces and seamlessly connected to Bengaluru's thriving IT corridor, Fortune Hestia offers a lifestyle where every day feels beautifully lived.",
@@ -325,7 +325,7 @@ export const BLOG_POSTS = [
     card: "Built for Every Season, Crafted for Life",
     title: "Built for Every Season",
     readTime: "1 mins",
-    image: "/images/5.png",
+    image: "/images/new9.png",
     body: [
       "A thoughtfully planned township begins with a strong foundation. At Fortune Cosmos, advanced drainage systems, engineered retaining walls and carefully designed infrastructure work together to ensure comfort, safety and peace of mind through every season.",
       "Every element has been planned with lasting quality in mind, creating a community that remains resilient while preserving its beauty and functionality. Because exceptional living is built on thoughtful planning, timeless craftsmanship and a commitment to creating homes that stand strong for generations.",
@@ -336,7 +336,7 @@ export const BLOG_POSTS = [
     card: "Connected to Everything That Matters",
     title: "Connected to Everything That Truly Matters",
     readTime: "1 mins",
-    image: "/images/conn.png",
+    image: "/images/new10.png",
     body: [
       "The right address shapes the way you live. Thoughtfully located off Sarjapur Road, Fortune Cosmos offers seamless connectivity to Bengaluru's leading IT hubs, renowned schools, healthcare centres and everyday conveniences, while preserving the calm of a thoughtfully planned community.",
       "Whether it's a short drive to Electronic City, Whitefield, Outer Ring Road or the city's thriving business districts, every destination is within easy reach. Here, effortless connectivity meets thoughtfully crafted living, creating a place where work, family and leisure exist in perfect harmony.",
