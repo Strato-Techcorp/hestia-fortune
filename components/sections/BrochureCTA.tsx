@@ -9,7 +9,7 @@ import ParallaxImage from "@/components/ui/ParallaxImage";
 
 const SLIDES = [
   {
-    src: "/images/3.jpeg",
+    src: "/images/6.png",
     alt: "Fortune Hestia villa architecture",
     caption: "Villa Elevation",
   },

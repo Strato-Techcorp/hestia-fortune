@@ -19,7 +19,7 @@ export default function Hero() {
       {/* Full-bleed background image -- this stays edge-to-edge, correctly */}
       <div className="absolute w-full h-screen">
         <Image
-          src="/images/herooo.jpeg"
+          src="/images/herooo.png"
           alt="Fortune Hestia villa elevation, Sarjapur Road, Bangalore"
           fill
           priority
