@@ -218,27 +218,27 @@ export const LIFESTYLE_PILLARS = [
   {
     title: "Made for the Moments That Matter Most.",
     desc: "Experience a lifestyle where nature, comfort, and family come together in perfect harmony.",
-    image: "/images/lifestyle-tug-of-war.jpg",
+    image: "/images/a5.png",
   },
   {
     title: " Life Flourishes in the Open.",
     desc: "Surrounded by lush green spaces, walking trails, and thoughtfully designed landscapes that inspire healthier, happier living.",
-    image: "/images/image (5).jpg",
+    image: "/images/a2.png",
   },
   {
     title: "Where Every Day Feels Effortless.",
     desc: "Thoughtfully crafted for comfort, nature, and everyday moments that make life meaningful.",
-    image: "/images/lifestyle-family-grass.jpg",
+    image: "/images/a4.png",
   },
   {
     title: "Where Every Generation Belongs.",
     desc: "Thoughtfully designed spaces that bring families together through nature, connection, and meaningful everyday moments.",
-    image: "/images/image (7).jpg",
+    image: "/images/a3.png",
   },
   {
     title: "Breathe in the Luxury of Space.",
     desc: "Expansive living designed around comfort, openness, and a lifestyle close to nature.",
-    image: "/images/image (4).jpg",
+    image: "/images/a1.png",
   },
   // {
   //   title: "Crafted Elegance",
@@ -374,11 +374,12 @@ const FACING_IMAGES: Record<FacingKey, string[]> = {
 };
 
 const SHOWCASE_40x60: Record<FacingKey, string[]> = {
-  north: ["/images/1.jpeg"],
-  south: ["/images/4.png"],
-  east: ["/images/5.png"],
-  west: ["/images/6.png"],
+  north: ["/images/6.png"],
+  south: ["/images/5.png"],
+  east: ["/images/4.png"],
+  west: ["/images/1.jpeg"],
 };
+
 
 const SHOWCASE_50x80: Record<FacingKey, string[]> = {
   north: ["/images/501.png"],

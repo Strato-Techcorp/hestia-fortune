@@ -5,6 +5,8 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import ParallaxImage from "@/components/ui/ParallaxImage";
+import Modal from "@/components/ui/Modal";
+import LeadForm from "@/components/ui/LeadForm";
 import { VILLA_DESIGN_DATA, PlotKey, FacingKey } from "@/lib/data";
 
 const PLOT_TABS: { key: PlotKey; label: string }[] = [
@@ -27,6 +29,7 @@ export default function VillaDesigns() {
   const [facing, setFacing] = useState<FacingKey>("north");
   const [lightbox, setLightbox] = useState<{ source: LightboxSource; index: number } | null>(null);
   const [showcaseIndex, setShowcaseIndex] = useState(0);
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const activePlot = VILLA_DESIGN_DATA.find((p) => p.key === plotType) ?? VILLA_DESIGN_DATA[0];
@@ -185,22 +188,21 @@ export default function VillaDesigns() {
             {/* Vertical divider -- desktop only */}
             <div className="hidden md:block bg-divider" />
 
-            {/* Right column: cover image for this facing, then its 6-photo grid */}
-            {/* Right column: 6-photo grid, then cover image at the end */}
+            {/* Right column: photo carousel on mobile, grid on tablet/desktop, then cover image showcase at the end */}
             <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory scrollbar-hide sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 -mx-4 px-4 sm:mx-0 sm:px-0 pb-1 sm:pb-0">
                 {facingImages.map((src, i) => (
                   <button
                     key={src}
                     onClick={() => setLightbox({ source: "facing", index: i })}
-                    className="group relative"
+                    className="group relative shrink-0 w-[82%] xs:w-[70%] sm:w-auto sm:shrink snap-start"
                   >
                     <ParallaxImage
                       src={src}
                       alt={`${activeLabel} ${i + 1}`}
                       className="aspect-[4/3] border border-divider transition-colors duration-300 group-hover:border-accent"
                       imageClassName="transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 82vw, (max-width: 1024px) 50vw, 33vw"
                       intensity={30}
                     />
                     <span className="absolute top-3 left-3 bg-accent-soft/70 backdrop-blur-sm text-ink label-text px-2 py-1">
@@ -208,6 +210,7 @@ export default function VillaDesigns() {
                     </span>
                   </button>
                 ))}
+                <div className="shrink-0 w-1 sm:hidden" aria-hidden />
               </div>
 
               {/* Bottom facing showcase -- arrow-navigable. North shows a single
@@ -230,6 +233,9 @@ export default function VillaDesigns() {
                       Image coming soon
                     </div>
                   )}
+
+                  {/* Bottom scrim so the label + CTA stay legible over any photo */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/70 to-transparent pointer-events-none" />
 
                   <span className="absolute top-4 left-4 bg-accent-soft/70 backdrop-blur-sm text-ink label-text px-2.5 py-1">
                     {FACING_TABS.find((t) => t.key === facing)?.label}
@@ -254,6 +260,14 @@ export default function VillaDesigns() {
                     aria-label="Next facing"
                   >
                     <ChevronRight size={20} />
+                  </button>
+
+                  {/* Know More CTA -- opens the lead form for this facing/plot */}
+                  <button
+                    onClick={() => setEnquiryOpen(true)}
+                    className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-1.5 border border-surface/50 bg-ink/40 backdrop-blur-sm text-surface text-[11px] uppercase tracking-[0.14em] font-sans font-semibold px-4 py-2 transition-colors duration-300 hover:bg-surface hover:text-ink"
+                  >
+                    Know More
                   </button>
                 </div>
 
@@ -335,6 +349,15 @@ export default function VillaDesigns() {
           </div>
         </div>
       )}
+
+      {/* Know More enquiry form */}
+      <Modal open={enquiryOpen} onClose={() => setEnquiryOpen(false)}>
+        <LeadForm
+          title={`Know More — ${activeLabel}`}
+          subtitle="Share your details and our team will send you the full details."
+          submitLabel="Request Details"
+        />
+      </Modal>
 
       <style jsx global>{`
         @keyframes fadeIn {

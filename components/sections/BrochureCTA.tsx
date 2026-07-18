@@ -14,14 +14,24 @@ const SLIDES = [
     caption: "Villa Elevation",
   },
   {
-    src: "/images/livingspaces (1).jpg",
-    alt: "Fortune Hestia villa interiors",
+    src: "/images/b1.png",
+    alt: "Fortune Hestia luxury living room",
     caption: "Living Spaces",
   },
   {
     src: "/images/livingspaces (2).jpg",
-    alt: "Fortune Hestia villa landscaping",
+    alt: "Fortune Hestia landscaped gardens",
     caption: "Garden & Courtyard",
+  },
+  {
+    src: "/images/b3.png",
+    alt: "Fortune Hestia swimming pool",
+    caption: "Resort-Style Pool",
+  },
+  {
+    src: "/images/b2.png",
+    alt: "Fortune Hestia premium interiors",
+    caption: "Premium Interiors",
   },
 ];
 
@@ -41,7 +51,7 @@ export default function BrochureCTA() {
 
   const handleSuccess = () => {
     const link = document.createElement("a");
-    link.href = "/downloads/fortune-hestia-brochure.pdf";
+    link.href = "/downloads/Fortune_Hestia_Brochure_Content (1).pdf";
     link.download = "Fortune-Hestia-Brochure.pdf";
     document.body.appendChild(link);
     link.click();

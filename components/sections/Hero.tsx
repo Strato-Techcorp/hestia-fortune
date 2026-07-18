@@ -15,21 +15,20 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="top" className="relative w-full min-h-[100svh] flex items-end overflow-hidden">
-      {/* Full-bleed background image -- this stays edge-to-edge, correctly */}
-      <div className="absolute w-full h-screen">
+    <section id="top" className="relative w-full min-h-[100dvh] flex items-end overflow-hidden">
+      <div className="absolute inset-0">
         <Image
           src="/images/herooo.png"
           alt="Fortune Hestia villa elevation, Sarjapur Road, Bangalore"
           fill
           priority
-          className="object-cover"
+          className="object-cover origin-bottom scale-125 sm:scale-100 sm:origin-center"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/45 to-ink/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/10 to-transparent sm:hidden" />
       </div>
 
-      {/* Content -- now aligned to the same container as every other section */}
       <div className="relative z-10 w-full container-px max-w-content mx-auto pt-28 sm:pt-32 pb-14 sm:pb-16 lg:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           <div className="lg:col-span-7">
@@ -49,10 +48,7 @@ export default function Hero() {
               </p>
             </Reveal>
             <Reveal direction="up" delay={0.3}>
-              <a
-                href="#enquiry"
-                className="mt-8 sm:mt-8 inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-surface text-surface text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-surface hover:text-ink"
-              >
+              <a href="#enquiry" className="mt-8 sm:mt-8 inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-surface text-surface text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-surface hover:text-ink">
                 Book a Private Tour
               </a>
             </Reveal>
@@ -104,8 +100,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Force any solid background utility classes inside LeadForm to transparent,
-          since we don't control LeadForm's internal markup from here. */}
       <style jsx global>{`
         .hero-lead-form,
         .hero-lead-form > * {

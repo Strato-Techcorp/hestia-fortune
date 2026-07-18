@@ -6,6 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
+import Modal from "@/components/ui/Modal";
+import LeadForm from "@/components/ui/LeadForm";
 import { LIFE_BEYOND_HOME } from "@/lib/data";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -74,6 +76,11 @@ export default function Amenities() {
     const heading = headingRef.current;
     const container = containerRef.current;
     if (!section || !heading || !container) return;
+
+    // The fan-card layout is desktop/tablet-only (see the `hidden lg:block`
+    // wrapper below) -- on phones we render a carousel instead, so skip all
+    // of this GSAP setup there entirely rather than animating hidden nodes.
+    if (window.innerWidth < 1024) return;
 
     const cardElements = Array.from(
       container.querySelectorAll<HTMLElement>(".fan-card")
@@ -296,6 +303,34 @@ export default function Amenities() {
 
   const activeItem = activeIndex !== null ? LIFE_BEYOND_HOME[activeIndex] : null;
 
+  // --- Mobile carousel (replaces the fan layout below the lg breakpoint) ---
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [enquiryItem, setEnquiryItem] = useState<string | null>(null);
+  const mobileTouchStartX = useRef<number | null>(null);
+
+  const goToNextMobile = useCallback(() => {
+    setMobileIndex((i) => (i + 1) % LIFE_BEYOND_HOME.length);
+  }, []);
+
+  const goToPreviousMobile = useCallback(() => {
+    setMobileIndex((i) => (i - 1 + LIFE_BEYOND_HOME.length) % LIFE_BEYOND_HOME.length);
+  }, []);
+
+  const handleMobileTouchStart = (e: React.TouchEvent) => {
+    mobileTouchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleMobileTouchEnd = (e: React.TouchEvent) => {
+    if (mobileTouchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - mobileTouchStartX.current;
+    const SWIPE_THRESHOLD = 40;
+    if (deltaX > SWIPE_THRESHOLD) goToPreviousMobile();
+    else if (deltaX < -SWIPE_THRESHOLD) goToNextMobile();
+    mobileTouchStartX.current = null;
+  };
+
+  const mobileItem = LIFE_BEYOND_HOME[mobileIndex];
+
   return (
     <section id="amenities" ref={sectionRef} className="bg-canvas py-24 md:py-32 border-t border-divider overflow-hidden">
       <div className="container-px max-w-content mx-auto">
@@ -317,10 +352,11 @@ export default function Amenities() {
           </h2>
         </div>
 
-        {/* Fan layout */}
+        {/* Fan layout -- desktop/tablet (lg and up). Phones get the arrow
+            carousel below instead. */}
         <div
           ref={containerRef}
-          className="relative flex items-center justify-center w-full"
+          className="relative hidden lg:flex items-center justify-center w-full"
           style={{ height: "38rem" }}
         >
           {LIFE_BEYOND_HOME.map((item, index) => (
@@ -357,6 +393,74 @@ export default function Amenities() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile/tablet carousel -- same arrow-navigable, dot-indicator
+            language as the Villa Designs facing showcase, so the amenities
+            section reads consistently with the rest of the site on phones.
+            Each slide carries a small "Know More" CTA that opens the lead
+            form modal for that amenity. */}
+        <div className="lg:hidden">
+          <div
+            className="relative group"
+            onTouchStart={handleMobileTouchStart}
+            onTouchEnd={handleMobileTouchEnd}
+          >
+            <div className="relative aspect-[4/5] sm:aspect-[16/10] w-full overflow-hidden border border-divider bg-ink">
+              <Image
+                key={mobileItem.image}
+                src={mobileItem.image}
+                alt={mobileItem.name}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/35 to-ink/10" />
+
+              <span className="absolute top-4 left-4 bg-ink/50 backdrop-blur-sm text-surface/70 label-text !text-[10px] !tracking-[0.25em] px-2.5 py-1">
+                {String(mobileIndex + 1).padStart(2, "0")} / {String(LIFE_BEYOND_HOME.length).padStart(2, "0")}
+              </span>
+
+              <button
+                onClick={goToPreviousMobile}
+                className="absolute top-1/2 left-3 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-surface/10 bg-ink/50 text-surface/70 backdrop-blur-sm transition-colors hover:text-surface hover:border-accent/40"
+                aria-label="Previous amenity"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={goToNextMobile}
+                className="absolute top-1/2 right-3 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-surface/10 bg-ink/50 text-surface/70 backdrop-blur-sm transition-colors hover:text-surface hover:border-accent/40"
+                aria-label="Next amenity"
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              <div className="relative z-10 flex flex-col justify-end h-full p-5 sm:p-7">
+                <h3 className="font-display italic font-light text-2xl sm:text-3xl leading-snug text-accent">
+                  {mobileItem.name}
+                </h3>
+                <p className="mt-2 max-w-sm text-sm font-sans font-light leading-relaxed text-surface/70">
+                  {mobileItem.desc}
+                </p>
+
+                
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-center gap-2">
+              {LIFE_BEYOND_HOME.map((item, i) => (
+                <button
+                  key={item.name}
+                  onClick={() => setMobileIndex(i)}
+                  aria-label={`Go to ${item.name}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === mobileIndex ? "w-6 bg-ink" : "w-1.5 bg-divider hover:bg-ink/40"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
       </div>
@@ -435,6 +539,15 @@ export default function Amenities() {
           </div>
         </div>
       )}
+
+      {/* "Know More" enquiry form, opened from the mobile carousel's CTA */}
+      <Modal open={enquiryItem !== null} onClose={() => setEnquiryItem(null)}>
+        <LeadForm
+          title={enquiryItem ? `Know More — ${enquiryItem}` : "Know More"}
+          subtitle="Share your details and our team will send you the full details."
+          submitLabel="Request Details"
+        />
+      </Modal>
 
       <style jsx global>{`
         @keyframes fadeIn {

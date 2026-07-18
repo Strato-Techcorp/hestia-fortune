@@ -6,16 +6,22 @@ import LeadForm from "@/components/ui/LeadForm";
 export default function Footer() {
   return (
     <footer id="contact" className="relative bg-canvas text-muted overflow-hidden border-t border-divider">
-      {/* Background image */}
-      <div className="absolute inset-0">
+      {/* Background image. On mobile the footer stacks into one long column
+          (nav links, contact info, the site-plan graphic, the form...), so
+          stretching this image across the *entire* footer height blew it up
+          far past its native resolution. Capping its height and anchoring
+          it to the top -- then fading it into bg-canvas -- keeps the same
+          crisp site-plan motif desktop has instead of an oversized blur. */}
+      <div className="absolute inset-x-0 top-0 h-[420px] sm:h-[520px] lg:inset-0 lg:h-full overflow-hidden">
         <Image
           src="/images/back.png"
           alt=""
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-canvas/90" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-canvas lg:hidden" />
       </div>
 
       <CosmosMapBackground />
