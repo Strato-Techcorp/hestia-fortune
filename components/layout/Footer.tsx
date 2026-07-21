@@ -1,9 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/data";
 import LeadForm from "@/components/ui/LeadForm";
 
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  const handleEmailClick = () => {
+    // mailto: only fires a mail app if the OS has a default one registered.
+    // On setups without one (common in desktop Chrome), the click does
+    // nothing visible -- so we also copy the address as a reliable fallback.
+    navigator.clipboard?.writeText(SITE.email).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
     <footer id="contact" className="relative bg-canvas text-muted overflow-hidden border-t border-divider">
       {/* Background image. On mobile the footer stacks into one long column
@@ -59,9 +74,33 @@ export default function Footer() {
               <div>
                 <h4 className="label-text text-accent-hover mb-4">Contact</h4>
                 <div className="text-sm text-muted [&>p]:leading-[35px] [&>p]:m-0">
-                  <p>{SITE.address}</p>
-                  <p>{SITE.phone}</p>
-                  <p>{SITE.email}</p>
+                  <p>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-accent-hover transition-colors"
+                    >
+                      {SITE.address}
+                    </a>
+                  </p>
+                  <p>
+                    <a
+                      href={`tel:${formatPhoneForTel(SITE.phone)}`}
+                      className="hover:text-accent-hover transition-colors"
+                    >
+                      {SITE.phone}
+                    </a>
+                  </p>
+                  <p>
+                    <a
+                      href={`mailto:${SITE.email}`}
+                      onClick={handleEmailClick}
+                      className="hover:text-accent-hover transition-colors"
+                    >
+                      {copied ? "Copied to clipboard!" : SITE.email}
+                    </a>
+                  </p>
                 </div>
               </div>
 
@@ -94,6 +133,14 @@ export default function Footer() {
       </div>
     </footer>
   );
+}
+
+function formatPhoneForTel(raw: string) {
+  const digits = raw.replace(/[^+\d]/g, "");
+  if (digits.startsWith("+")) return digits;
+  // Strip a leading 0 (common in local-format Indian numbers) before adding +91
+  const trimmed = digits.replace(/^0+/, "");
+  return `+91${trimmed}`;
 }
 
 function CosmosMapBackground() {
