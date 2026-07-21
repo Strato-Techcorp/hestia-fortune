@@ -51,7 +51,7 @@ export default function BrochureCTA() {
 
   const handleSuccess = () => {
     const link = document.createElement("a");
-    link.href = "/downloads/Fortune_Hestia_Brochure_Content (1).pdf";
+    link.href = "/downloads/Fortune_Hestia (6).pdf";
     link.download = "Fortune-Hestia-Brochure.pdf";
     document.body.appendChild(link);
     link.click();

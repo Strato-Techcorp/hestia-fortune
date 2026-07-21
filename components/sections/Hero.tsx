@@ -22,7 +22,7 @@ export default function Hero() {
           alt="Fortune Hestia villa elevation, Sarjapur Road, Bangalore"
           fill
           priority
-          className="object-cover object-[center_20%] sm:object-center"
+          className="object-cover object-[42%_center] sm:object-center"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/45 to-ink/10" />

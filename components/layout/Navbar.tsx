@@ -39,7 +39,10 @@ export default function Navbar() {
         />
 
         <div className="container-px max-w-content mx-auto flex items-center justify-between">
-          <Link href="/" className="relative flex items-center h-16 w-52 shrink-0">
+          {/* Logo — reduced ~15-20% on mobile (was 208x64, occupying nearly a
+              quarter of the top of the screen and overlapping the header
+              edge); lg: restores the original desktop size. */}
+          <Link href="/" className="relative flex items-center h-[46px] w-[150px] lg:h-16 lg:w-52 shrink-0">
             <Image
               src="/images/logo.png"
               alt="Fortune Hestia"
