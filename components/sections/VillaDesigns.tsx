@@ -30,6 +30,11 @@ export default function VillaDesigns() {
   const [lightbox, setLightbox] = useState<{ source: LightboxSource; index: number } | null>(null);
   const [showcaseIndex, setShowcaseIndex] = useState(0);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
+  // Gates the bottom showcase image behind the enquiry form -- starts
+  // blurred with a centered "Know More" CTA; once the lead form is
+  // submitted, the image reveals and stays revealed for the rest of the
+  // session (across facing/plot switches).
+  const [imageRevealed, setImageRevealed] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
   const activePlot = VILLA_DESIGN_DATA.find((p) => p.key === plotType) ?? VILLA_DESIGN_DATA[0];
@@ -216,7 +221,9 @@ export default function VillaDesigns() {
               {/* Bottom facing showcase -- arrow-navigable. North shows a single
                   image; South/East/West cycle through 4 images each before
                   rolling over to the next facing. Sourced from
-                  activePlot.facingShowcase in lib/data.ts. */}
+                  activePlot.facingShowcase in lib/data.ts. Gated behind the
+                  enquiry form: blurred with a centered "Know More" CTA until
+                  submitted, then reveals for the rest of the session. */}
               <div className="relative mt-6 group">
                 <div className="relative aspect-[21/9] w-full overflow-hidden border border-divider bg-accent-soft/40">
                   {bottomImageSrc ? (
@@ -225,7 +232,9 @@ export default function VillaDesigns() {
                       src={bottomImageSrc}
                       alt={`${FACING_TABS.find((t) => t.key === facing)?.label} showcase`}
                       fill
-                      className="object-cover"
+                      className={`object-cover transition-all duration-700 ease-out ${
+                        imageRevealed ? "blur-0 scale-100" : "blur-xl scale-110"
+                      }`}
                       sizes="(max-width: 1024px) 100vw, 75vw"
                     />
                   ) : (
@@ -234,8 +243,13 @@ export default function VillaDesigns() {
                     </div>
                   )}
 
-                  {/* Bottom scrim so the label + CTA stay legible over any photo */}
+                  {/* Bottom scrim so the label stays legible over any photo */}
                   <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/70 to-transparent pointer-events-none" />
+
+                  {/* Extra darkening scrim while the image is still gated */}
+                  {!imageRevealed && bottomImageSrc && (
+                    <div className="absolute inset-0 bg-ink/45 transition-opacity duration-700" />
+                  )}
 
                   <span className="absolute top-4 left-4 bg-accent-soft/70 backdrop-blur-sm text-ink label-text px-2.5 py-1">
                     {FACING_TABS.find((t) => t.key === facing)?.label}
@@ -262,13 +276,19 @@ export default function VillaDesigns() {
                     <ChevronRight size={20} />
                   </button>
 
-                  {/* Know More CTA -- opens the lead form for this facing/plot */}
-                  <button
-                    onClick={() => setEnquiryOpen(true)}
-                    className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-1.5 border border-surface/50 bg-ink/40 backdrop-blur-sm text-surface text-[11px] uppercase tracking-[0.14em] font-sans font-semibold px-4 py-2 transition-colors duration-300 hover:bg-surface hover:text-ink"
-                  >
-                    Know More
-                  </button>
+                  {/* Know More CTA -- centered over the blurred image while
+                      gated. Opens the lead form; once submitted, the image
+                      reveals and this CTA disappears. */}
+                  {!imageRevealed && (
+                    <div className="absolute inset-0 z-20 flex items-center justify-center">
+                      <button
+                        onClick={() => setEnquiryOpen(true)}
+                        className="inline-flex items-center gap-1.5 border border-surface/60 bg-ink/50 backdrop-blur-sm text-surface text-xs uppercase tracking-[0.16em] font-sans font-semibold px-6 py-3 transition-colors duration-300 hover:bg-surface hover:text-ink"
+                      >
+                        Know More
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-3 flex items-center justify-center gap-2">
@@ -350,12 +370,14 @@ export default function VillaDesigns() {
         </div>
       )}
 
-      {/* Know More enquiry form */}
+      {/* Know More enquiry form -- submitting this reveals the blurred
+          showcase image via onSuccess. */}
       <Modal open={enquiryOpen} onClose={() => setEnquiryOpen(false)}>
         <LeadForm
           title={`Know More — ${activeLabel}`}
           subtitle="Share your details and our team will send you the full details."
           submitLabel="Request Details"
+          onSuccess={() => setImageRevealed(true)}
         />
       </Modal>
 

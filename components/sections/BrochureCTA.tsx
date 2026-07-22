@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
+import { Download } from "lucide-react";
 import Reveal from "@/components/ui/Reveal";
 import Modal from "@/components/ui/Modal";
 import LeadForm from "@/components/ui/LeadForm";
@@ -119,7 +120,7 @@ export default function BrochureCTA() {
     <section id="brochure" className="bg-canvas py-24 md:py-36 border-t border-divider">
       <div className="container-px max-w-content mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
         {/* Copy */}
-        <div className="lg:col-span-5 lg:col-start-1 order-2 lg:order-1">
+        <div className="lg:col-span-5 lg:col-start-1 order-1 lg:order-1">
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="eyebrow">Contemporary Villas</span>
@@ -153,7 +154,21 @@ export default function BrochureCTA() {
 
           <Reveal delay={0.4}>
             <div className="mt-10 flex items-center gap-5">
-              <button onClick={() => setOpen(true)} className="btn-primary">
+              <button
+                onClick={() => setOpen(true)}
+                className="btn-primary inline-flex items-center gap-2.5"
+              >
+                <motion.span
+                  className="inline-flex"
+                  animate={{ scale: [1, 1.15, 1], opacity: [1, 0.75, 1] }}
+                  transition={{
+                    duration: 1.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <Download size={16} strokeWidth={2} />
+                </motion.span>
                 Download Brochure
               </button>
               <span className="text-[11px] uppercase tracking-[0.14em] text-ink/45">
@@ -164,7 +179,7 @@ export default function BrochureCTA() {
         </div>
 
         {/* Framed image slider, mat-board style */}
-        <div className="lg:col-span-7 lg:col-start-6 order-1 lg:order-2">
+        <div className="lg:col-span-7 lg:col-start-6 order-2 lg:order-2">
           <Reveal delay={0.15}>
             <div className="relative">
               <div

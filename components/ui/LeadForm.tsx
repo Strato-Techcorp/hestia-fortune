@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 
 export default function LeadForm({
@@ -81,8 +82,19 @@ export default function LeadForm({
         I agree to be contacted regarding Fortune Hestia and accept the privacy policy.
       </label>
 
-      <button type="submit" className="mt-5 md:mt-6 btn-primary">
-        {submitLabel} <ArrowRight size={14} />
+      <button type="submit" className="mt-5 md:mt-6 btn-primary inline-flex items-center gap-2.5">
+        {submitLabel}
+        <motion.span
+          className="inline-flex"
+          animate={{ x: [0, 4, 0], opacity: [1, 0.75, 1] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <ArrowRight size={14} />
+        </motion.span>
       </button>
     </form>
   );

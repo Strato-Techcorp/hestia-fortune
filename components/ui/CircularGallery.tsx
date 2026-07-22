@@ -31,10 +31,27 @@ interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
   onItemClick?: (index: number, item: GalleryItem) => void;
   /** Show prev/next arrow controls on either side. Defaults to true. */
   showArrows?: boolean;
+  /** Card width in px. Pass a smaller value on phones to shrink the cards. */
+  cardWidth?: number;
+  /** Card height in px. Pass a smaller value on phones to shrink the cards. */
+  cardHeight?: number;
 }
 
 const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
-  ({ items, className, radius = 600, autoRotateSpeed = 0.02, onItemClick, showArrows = true, ...props }, ref) => {
+  (
+    {
+      items,
+      className,
+      radius = 600,
+      autoRotateSpeed = 0.02,
+      onItemClick,
+      showArrows = true,
+      cardWidth = 300,
+      cardHeight = 400,
+      ...props
+    },
+    ref
+  ) => {
     const [rotation, setRotation] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -137,16 +154,18 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 key={item.photo.url} 
                 role="group"
                 aria-label={item.common}
-                className={cn("absolute w-[300px] h-[400px]", onItemClick && "cursor-pointer")}
+                className={cn("absolute", onItemClick && "cursor-pointer")}
                 onClick={onItemClick ? () => onItemClick(i, item) : undefined}
                 style={{
+                  width: `${cardWidth}px`,
+                  height: `${cardHeight}px`,
                   transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
                   left: '50%',
                   top: '50%',
-                  marginLeft: '-150px',
-                  marginTop: '-200px',
+                  marginLeft: `${-cardWidth / 2}px`,
+                  marginTop: `${-cardHeight / 2}px`,
                   opacity: opacity,
-                  transition: 'opacity 0.3s linear'
+                  transition: 'opacity 0.3s linear, width 0.2s ease, height 0.2s ease, margin 0.2s ease'
                 }}
               >
                 <div className="relative w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-card/70 dark:bg-card/30 backdrop-blur-lg">
@@ -156,12 +175,14 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{ objectPosition: item.photo.pos || 'center' }}
                   />
-                  {/* Replaced text-primary-foreground with text-white for consistent color */}
-                  <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
-                    <h2 className="text-xl font-bold">{item.common}</h2>
-                    <em className="text-sm italic opacity-80">{item.binomial}</em>
+                  {/* Overall darkening layer so text stays legible against any photo,
+                      plus a stronger gradient toward the bottom where the caption sits. */}
+                  <div className="absolute inset-0 bg-black/35" />
+                  <div className="absolute bottom-0 left-0 w-full p-2.5 sm:p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
+                    <h2 className="text-sm sm:text-lg lg:text-xl font-bold leading-tight text-accent-hover">{item.common}</h2>
+                    <em className="text-[11px] sm:text-sm italic opacity-80 leading-snug block">{item.binomial}</em>
                     {item.photo.by && (
-                      <p className="text-xs mt-2 opacity-70">Photo by: {item.photo.by}</p>
+                      <p className="text-[10px] sm:text-xs mt-2 opacity-70">Photo by: {item.photo.by}</p>
                     )}
                   </div>
                 </div>
@@ -178,17 +199,17 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
               type="button"
               onClick={goToPrevious}
               aria-label="Previous item"
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/80 backdrop-blur-sm transition-colors hover:text-white hover:bg-black/60 hover:border-white/30"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/80 backdrop-blur-sm transition-colors hover:text-white hover:bg-black/60 hover:border-white/30"
             >
-              <ChevronLeft size={22} />
+              <ChevronLeft size={20} />
             </button>
             <button
               type="button"
               onClick={goToNext}
               aria-label="Next item"
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/80 backdrop-blur-sm transition-colors hover:text-white hover:bg-black/60 hover:border-white/30"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex h-9 w-9 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/80 backdrop-blur-sm transition-colors hover:text-white hover:bg-black/60 hover:border-white/30"
             >
-              <ChevronRight size={22} />
+              <ChevronRight size={20} />
             </button>
           </>
         )}
