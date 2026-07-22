@@ -48,7 +48,10 @@ export default function Hero() {
               </p>
             </Reveal>
             <Reveal direction="up" delay={0.3}>
-              <a href="#enquiry" className="mt-8 sm:mt-8 inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-surface text-surface text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-surface hover:text-ink">
+              <a
+                href="#enquiry"
+                className="mt-8 sm:mt-8 inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border border-surface text-surface text-label uppercase font-sans font-semibold transition-colors duration-300 hover:bg-surface hover:text-ink animate-[breathe_2.6s_ease-in-out_infinite]"
+              >
                 Book a Private Tour
               </a>
             </Reveal>
@@ -104,6 +107,10 @@ export default function Hero() {
         .hero-lead-form,
         .hero-lead-form > * {
           background-color: transparent !important;
+        }
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.06); opacity: 0.85; }
         }
       `}</style>
     </section>

@@ -134,15 +134,24 @@ export default function LifestylePillars() {
 
         {/* SKIP -- lets users who don't want to scroll through every slide jump
             straight to the next section. Plain anchor so SmoothScroll's global
-            click handler picks it up and animates via Lenis; no new wiring needed. */}
+            click handler picks it up and animates via Lenis; no new wiring needed.
+            Breathing pulse (same keyframe used on other site CTAs) draws the eye
+            without being distracting or changing its resting size. */}
         <a
           href="#brochure"
-          className="absolute bottom-8 right-6 md:right-10 z-20 inline-flex items-center gap-2 px-5 py-2.5 label-text !tracking-[0.2em] text-surface/70 border border-surface/20 bg-ink/30 backdrop-blur-sm transition-colors duration-300 hover:text-surface hover:border-surface/40"
+          className="absolute bottom-8 right-6 md:right-10 z-20 inline-flex items-center gap-2 px-5 py-2.5 label-text !tracking-[0.2em] text-surface/70 border border-surface/20 bg-ink/30 backdrop-blur-sm transition-colors duration-300 hover:text-surface hover:border-surface/40 animate-[breathe_2.6s_ease-in-out_infinite]"
         >
           Skip
           <ChevronDown size={14} />
         </a>
       </div>
+
+      <style jsx global>{`
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.06); opacity: 0.85; }
+        }
+      `}</style>
     </section>
   );
 }

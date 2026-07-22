@@ -31,8 +31,8 @@ export default function VillaDesigns() {
   const [showcaseIndex, setShowcaseIndex] = useState(0);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   // Gates the bottom showcase image behind the enquiry form -- starts
-  // blurred with a centered "Know More" CTA; once the lead form is
-  // submitted, the image reveals and stays revealed for the rest of the
+  // blurred with a centered "Explore Villa Design" CTA; once the lead form
+  // is submitted, the image reveals and stays revealed for the rest of the
   // session (across facing/plot switches).
   const [imageRevealed, setImageRevealed] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -222,8 +222,8 @@ export default function VillaDesigns() {
                   image; South/East/West cycle through 4 images each before
                   rolling over to the next facing. Sourced from
                   activePlot.facingShowcase in lib/data.ts. Gated behind the
-                  enquiry form: blurred with a centered "Know More" CTA until
-                  submitted, then reveals for the rest of the session. */}
+                  enquiry form: blurred with a centered "Explore Villa Design"
+                  CTA until submitted, then reveals for the rest of the session. */}
               <div className="relative mt-6 group">
                 <div className="relative aspect-[21/9] w-full overflow-hidden border border-divider bg-accent-soft/40">
                   {bottomImageSrc ? (
@@ -243,13 +243,7 @@ export default function VillaDesigns() {
                     </div>
                   )}
 
-                  {/* Bottom scrim so the label stays legible over any photo */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/70 to-transparent pointer-events-none" />
-
-                  {/* Extra darkening scrim while the image is still gated */}
-                  {!imageRevealed && bottomImageSrc && (
-                    <div className="absolute inset-0 bg-ink/45 transition-opacity duration-700" />
-                  )}
+                  {/* Gating effect is blur only now — no black scrim/overlay */}
 
                   <span className="absolute top-4 left-4 bg-accent-soft/70 backdrop-blur-sm text-ink label-text px-2.5 py-1">
                     {FACING_TABS.find((t) => t.key === facing)?.label}
@@ -276,16 +270,18 @@ export default function VillaDesigns() {
                     <ChevronRight size={20} />
                   </button>
 
-                  {/* Know More CTA -- centered over the blurred image while
-                      gated. Opens the lead form; once submitted, the image
-                      reveals and this CTA disappears. */}
+                  {/* Explore Villa Design CTA -- centered over the blurred
+                      image while gated. Same size as before, just a
+                      continuous slow breathing pulse to draw the eye without
+                      being distracting. Opens the lead form; once submitted,
+                      the image reveals and this CTA disappears. */}
                   {!imageRevealed && (
                     <div className="absolute inset-0 z-20 flex items-center justify-center">
                       <button
                         onClick={() => setEnquiryOpen(true)}
-                        className="inline-flex items-center gap-1.5 border border-surface/60 bg-ink/50 backdrop-blur-sm text-surface text-xs uppercase tracking-[0.16em] font-sans font-semibold px-6 py-3 transition-colors duration-300 hover:bg-surface hover:text-ink"
+                        className="inline-flex items-center gap-1.5 border border-surface/60 bg-ink/50 backdrop-blur-sm text-surface text-xs uppercase tracking-[0.16em] font-sans font-semibold px-6 py-3 transition-colors duration-300 hover:bg-surface hover:text-ink animate-[breathe_2.6s_ease-in-out_infinite]"
                       >
-                        Know More
+                        Explore Villa Design
                       </button>
                     </div>
                   )}
@@ -370,11 +366,11 @@ export default function VillaDesigns() {
         </div>
       )}
 
-      {/* Know More enquiry form -- submitting this reveals the blurred
-          showcase image via onSuccess. */}
+      {/* Explore Villa Design enquiry form -- submitting this reveals the
+          blurred showcase image via onSuccess. */}
       <Modal open={enquiryOpen} onClose={() => setEnquiryOpen(false)}>
         <LeadForm
-          title={`Know More — ${activeLabel}`}
+          title={`Explore Villa Design — ${activeLabel}`}
           subtitle="Share your details and our team will send you the full details."
           submitLabel="Request Details"
           onSuccess={() => setImageRevealed(true)}
@@ -389,6 +385,10 @@ export default function VillaDesigns() {
         @keyframes popIn {
           from { opacity: 0; transform: scale(0.92); }
           to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.06); opacity: 0.85; }
         }
       `}</style>
     </section>

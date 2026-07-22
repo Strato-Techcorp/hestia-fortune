@@ -156,19 +156,9 @@ export default function BrochureCTA() {
             <div className="mt-10 flex items-center gap-5">
               <button
                 onClick={() => setOpen(true)}
-                className="btn-primary inline-flex items-center gap-2.5"
+                className="btn-primary inline-flex items-center gap-2.5 animate-[breathe_2.6s_ease-in-out_infinite]"
               >
-                <motion.span
-                  className="inline-flex"
-                  animate={{ scale: [1, 1.15, 1], opacity: [1, 0.75, 1] }}
-                  transition={{
-                    duration: 1.8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Download size={16} strokeWidth={2} />
-                </motion.span>
+                <Download size={16} strokeWidth={2} />
                 Download Brochure
               </button>
               <span className="text-[11px] uppercase tracking-[0.14em] text-ink/45">
@@ -274,6 +264,13 @@ export default function BrochureCTA() {
           onSuccess={handleSuccess}
         />
       </Modal>
+
+      <style jsx global>{`
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.06); opacity: 0.85; }
+        }
+      `}</style>
     </section>
   );
 }
